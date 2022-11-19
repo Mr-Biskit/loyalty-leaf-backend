@@ -89,10 +89,10 @@ contract LoyaltyLeaf is VRFConsumerBaseV2 {
         uint256 cumulativeSum = 0;
         uint256[4] memory chanceArray = getChanceArray();
         for (uint256 i = 0; i < chanceArray.length; i++) {
-            if (moddedRng >= cumulativeSum && moddedRng < cumulativeSum + chanceArray[i]) {
+            if (moddedRng >= cumulativeSum && moddedRng < chanceArray[i]) {
                 return Leaf(i);
             }
-            cumulativeSum += chanceArray[i];
+            cumulativeSum = chanceArray[i];
         }
         revert RangeOutOfBounds();
     }
